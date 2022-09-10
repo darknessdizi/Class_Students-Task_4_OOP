@@ -27,6 +27,13 @@ class Mentor:
         self.surname = surname
         self.courses_attached = []
 
+class Lecture(Mentor):
+    pass
+
+class Reviewer(Mentor):
+
+    '''Создает учителей-экспертов, проверяющих домашние задания'''
+
     def rate_hw(self, student, course, grade):
 
         '''Метод добавляет оценку студенту за пройденный курс при условии,
@@ -41,23 +48,17 @@ class Mentor:
             else:
                 student.grades[course] = [grade]
         else:
-            return 'Ошибка'
-
-class Lecture(Mentor):
-    pass
-
-class Reviewer(Mentor):
-    pass 
+            return 'Ошибка' 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
  
-cool_lector = Lecture('Some', 'Buddy')
-cool_lector.courses_attached += ['Python']
+cool_reviewer = Reviewer('Some', 'Buddy')
+cool_reviewer.courses_attached += ['Python']
  
-cool_lector.rate_hw(best_student, 'Python', 10)
-cool_lector.rate_hw(best_student, 'Python', 10)
-cool_lector.rate_hw(best_student, 'Python', 10)
+cool_reviewer.rate_hw(best_student, 'Python', 10)
+cool_reviewer.rate_hw(best_student, 'Python', 10)
+cool_reviewer.rate_hw(best_student, 'Python', 10)
  
 print(best_student.grades)
 
