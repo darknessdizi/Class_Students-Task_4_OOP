@@ -54,6 +54,24 @@ class Student:
             return 'Нет оценок'
         return round(count/total_length, 1)
 
+    def __lt__(self, second_student):
+        if not isinstance(second_student, Student):
+            print('Not a Student!')
+            return
+        if self.__average_rating() < second_student.__average_rating():
+            print(f'True. {self.name} слабее {second_student.name}')
+        else:
+            print(f'False. {self.name} сильнее {second_student.name}')
+            
+    def __eq__(self, second_student):
+        if not isinstance(second_student, Student):
+            print('Not a Student!')
+            return
+        if self.__average_rating() == second_student.__average_rating():
+            print(f'True. {self.name} и {second_student.name} одинаково умны')
+        else:
+            print(f'False. {self.name} и {second_student.name} разные')
+
 
 class Mentor:
 
@@ -131,7 +149,9 @@ class Reviewer(Mentor):
 best_student = Student('Ruoy', 'Eman', 'man')
 best_student.courses_in_progress += ['Python', 'Java']
 best_student.finished_courses += ['C++']
- 
+best_student_2 = Student('Mila', 'Rem', 'woman')
+best_student_2.courses_in_progress += ['Python']
+
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 
@@ -148,9 +168,11 @@ print(best_student.rate_hw(cool_lecture, 'C++', 5))
 
 print(best_student.rate_hw(cool_reviewer, 'Python', 3))
  
+cool_reviewer.rate_hw(best_student, 'Python', 9)
+cool_reviewer.rate_hw(best_student, 'Python', 8)
 cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
+cool_reviewer.rate_hw(best_student_2, 'Python', 10)
+cool_reviewer.rate_hw(best_student_2, 'Python', 9)
  
 print(best_student.grades)
 print(best_student.__dict__)
@@ -158,6 +180,8 @@ print(cool_lecture.__dict__)
 print(cool_reviewer.__dict__)
 print(cool_lecture_2.__dict__)
 print(best_student)
+print(best_student_2)
 print(cool_reviewer)
 print(cool_lecture)
 print(cool_lecture_2)
+
