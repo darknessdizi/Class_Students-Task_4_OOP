@@ -182,7 +182,7 @@ class Reviewer(Mentor):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
-def assessment_for_the_course(list_student, course):
+def assessment_of_homework(list_student, course):
     average_score = 0
     count = 0
     for student in list_student:
@@ -195,7 +195,21 @@ def assessment_for_the_course(list_student, course):
         average_score = average_score/count
         return f'Средняя оценка за домашнее задание по "{course}": {average_score}'
 
+def assessment_for_lectures(list_lecture, course):
+    average_score = 0
+    count = 0
+    for lecture in list_lecture:
+        if course in lecture.grades:
+            average_score += sum(lecture.grades[course])/len(lecture.grades[course])
+            count += 1
+    if count == 0:
+        return f'За курс "{course}" студенты не поставили оценок'
+    else:
+        average_score = average_score/count
+        return f'Средняя оценка за лекции по "{course}": {average_score}'
+
 list_student = []
+list_lecture = []
 
 student_1 = Student('Ruoy', 'Eman', 'man')
 student_1.courses_in_progress += ['Python', 'Java']
@@ -214,9 +228,15 @@ reviewer_2.courses_attached += ['Java', 'C++']
 
 lecture_1 = Lecture('Irina', 'Shayk')
 lecture_1.courses_attached += ['Python', 'Java', 'C++']
+list_lecture.append(lecture_1)
 
 lecture_2 = Lecture('Baks', 'Banny')
-lecture_2.courses_attached += ['Python', 'Java', 'C++', 'Html']
+lecture_2.courses_attached += ['Python', 'Java', 'C++', 'Httml']
+list_lecture.append(lecture_2)
+
+lecture_3 = Lecture('Robbi', 'Vilyams')
+lecture_3.courses_attached += ['Java', 'C++', 'Httml']
+list_lecture.append(lecture_3)
 
 student_2.rate_hw(lecture_1, 'Python', 8)
 student_2.rate_hw(lecture_2, 'Python', 9)
@@ -240,12 +260,13 @@ reviewer_1.rate_hw(student_1, 'Python', 10)
 reviewer_1.rate_hw(student_2, 'Python', 10)
 reviewer_1.rate_hw(student_2, 'Python', 9)
 
-reviewer_2.rate_hw(student_2, 'Html', 9)
+reviewer_2.rate_hw(student_2, 'Httml', 9)
  
 print(student_1.__dict__)
 print(student_2.__dict__)
 print(lecture_1.__dict__)
 print(lecture_2.__dict__)
+print(lecture_3.__dict__)
 print(reviewer_1.__dict__)
 print(reviewer_2.__dict__)
 
@@ -270,4 +291,8 @@ lecture_1 == lecture_2
 
 lecture_1 < student_1
 
-print(assessment_for_the_course(list_student, 'Python'))
+print(assessment_of_homework(list_student, 'Python'))
+print(assessment_of_homework(list_student, 'Java'))
+print(assessment_for_lectures(list_lecture, 'Python'))
+print(assessment_for_lectures(list_lecture, 'Java'))
+print(assessment_for_lectures(list_lecture, 'Httml'))
