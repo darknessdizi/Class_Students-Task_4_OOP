@@ -28,7 +28,7 @@ class Student:
             else:
                 lecture.grades[course] = [grade]
         else:
-            return f'Error for {lecture.name} {lecture.surname}'
+            return print(f'Error for {lecture.name} {lecture.surname} от student {self.name}')
 
     def __str__(self):
 
@@ -173,7 +173,7 @@ class Reviewer(Mentor):
             else:
                 student.grades[course] = [grade]
         else:
-            return 'Ошибка' 
+            return print(f'Ошибка от reviewer {self.name}')
 
     def __str__(self):
 
@@ -182,43 +182,73 @@ class Reviewer(Mentor):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
-best_student = Student('Ruoy', 'Eman', 'man')
-best_student.courses_in_progress += ['Python', 'Java']
-best_student.finished_courses += ['C++']
-best_student_2 = Student('Mila', 'Rem', 'woman')
-best_student_2.courses_in_progress += ['Python']
+student_1 = Student('Ruoy', 'Eman', 'man')
+student_1.courses_in_progress += ['Python', 'Java']
+student_1.finished_courses += ['C++']
 
-cool_reviewer = Reviewer('Some', 'Buddy')
-cool_reviewer.courses_attached += ['Python']
+student_2 = Student('Mila', 'Rem', 'woman')
+student_2.courses_in_progress += ['Python', 'C++']
 
-cool_lecture = Lecture('Irina', 'Shayk')
-cool_lecture.courses_attached += ['Python', 'Java', 'C++']
-cool_lecture_2 = Lecture('Baks', 'Banny')
-cool_lecture_2.courses_attached += ['Python', 'Java', 'C++', 'Html']
+reviewer_1 = Reviewer('Some', 'Buddy')
+reviewer_1.courses_attached += ['Python']
 
-best_student.rate_hw(cool_lecture, 'Python', 9)
-best_student.rate_hw(cool_lecture, 'Python', 6)
-best_student.rate_hw(cool_lecture, 'Python', 9)
-print(best_student.rate_hw(cool_lecture, 'Java', 3))
-print(best_student.rate_hw(cool_lecture, 'C++', 5))
-best_student.rate_hw(cool_lecture_2, 'Java', 4)
+reviewer_2 = Reviewer('Bob', 'Miller')
+reviewer_2.courses_attached += ['Java', 'C++']
 
-print(best_student.rate_hw(cool_reviewer, 'Python', 3))
+lecture_1 = Lecture('Irina', 'Shayk')
+lecture_1.courses_attached += ['Python', 'Java', 'C++']
+
+lecture_2 = Lecture('Baks', 'Banny')
+lecture_2.courses_attached += ['Python', 'Java', 'C++', 'Html']
+
+student_2.rate_hw(lecture_1, 'Python', 8)
+student_2.rate_hw(lecture_2, 'Python', 9)
+student_2.rate_hw(lecture_1, 'Python', 5)
+student_2.rate_hw(lecture_1, 'Java', 8)
+student_2.rate_hw(lecture_1, 'C++', 7)
+student_2.rate_hw(lecture_2, 'Java', 6)
+
+student_1.rate_hw(lecture_1, 'Python', 9)
+student_1.rate_hw(lecture_1, 'Python', 6)
+student_1.rate_hw(lecture_1, 'Python', 9)
+student_1.rate_hw(lecture_1, 'Java', 3)
+student_1.rate_hw(lecture_1, 'C++', 5)
+student_1.rate_hw(lecture_2, 'Java', 4)
+
+student_1.rate_hw(reviewer_1, 'Python', 3)
  
-cool_reviewer.rate_hw(best_student, 'Python', 9)
-cool_reviewer.rate_hw(best_student, 'Python', 8)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student_2, 'Python', 10)
-cool_reviewer.rate_hw(best_student_2, 'Python', 9)
- 
-print(best_student.grades)
-print(best_student.__dict__)
-print(cool_lecture.__dict__)
-print(cool_reviewer.__dict__)
-print(cool_lecture_2.__dict__)
-print(best_student)
-print(best_student_2)
-print(cool_reviewer)
-print(cool_lecture)
-print(cool_lecture_2)
+reviewer_1.rate_hw(student_1, 'Python', 9)
+reviewer_1.rate_hw(student_1, 'Python', 8)
+reviewer_1.rate_hw(student_1, 'Python', 10)
+reviewer_1.rate_hw(student_2, 'Python', 10)
+reviewer_1.rate_hw(student_2, 'Python', 9)
 
+reviewer_2.rate_hw(student_2, 'Html', 9)
+ 
+print(student_1.__dict__)
+print(student_2.__dict__)
+print(lecture_1.__dict__)
+print(lecture_2.__dict__)
+print(reviewer_1.__dict__)
+print(reviewer_2.__dict__)
+
+print(student_1)
+print(student_2)
+
+print(reviewer_1)
+print(reviewer_2)
+
+print(lecture_1)
+print(lecture_2)
+
+student_1 < student_2
+student_1 > student_2
+student_1 == student_2
+
+student_1 < lecture_2
+
+lecture_1 < lecture_2
+lecture_1 > lecture_2
+lecture_1 == lecture_2
+
+lecture_1 < student_1
