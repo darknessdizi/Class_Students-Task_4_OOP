@@ -13,7 +13,7 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {} 
-
+        
     def rate_hw(self, lecture, course, grade):
 
         '''Метод добавляет оценку лектору за предоставленный курс при условии,
@@ -182,12 +182,29 @@ class Reviewer(Mentor):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
+def assessment_for_the_course(list_student, course):
+    average_score = 0
+    count = 0
+    for student in list_student:
+        if course in student.grades:
+            average_score += sum(student.grades[course])/len(student.grades[course])
+            count += 1
+    if count == 0:
+        return f'На курсе "{course}" студенты не получили оценок'
+    else:
+        average_score = average_score/count
+        return f'Средняя оценка за домашнее задание по "{course}": {average_score}'
+
+list_student = []
+
 student_1 = Student('Ruoy', 'Eman', 'man')
 student_1.courses_in_progress += ['Python', 'Java']
 student_1.finished_courses += ['C++']
+list_student.append(student_1)
 
 student_2 = Student('Mila', 'Rem', 'woman')
 student_2.courses_in_progress += ['Python', 'C++']
+list_student.append(student_2)
 
 reviewer_1 = Reviewer('Some', 'Buddy')
 reviewer_1.courses_attached += ['Python']
@@ -252,3 +269,5 @@ lecture_1 > lecture_2
 lecture_1 == lecture_2
 
 lecture_1 < student_1
+
+print(assessment_for_the_course(list_student, 'Python'))
