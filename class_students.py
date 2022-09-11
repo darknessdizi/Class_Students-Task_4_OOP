@@ -45,6 +45,9 @@ class Student:
         return name + average + courses_in_progress + finished_courses
 
     def __average_rating(self):
+
+        '''Вычисляет среднюю оценку за домашние задания всех предметов'''
+
         count = 0
         total_length = 0
         for value in self.grades.values():
@@ -55,6 +58,9 @@ class Student:
         return round(count/total_length, 1)
 
     def __lt__(self, second_student):
+
+        '''Метод для оператора меньше'''
+
         if not isinstance(second_student, Student):
             print('Not a Student!')
             return
@@ -64,6 +70,9 @@ class Student:
             print(f'False. {self.name} сильнее {second_student.name}')
             
     def __eq__(self, second_student):
+
+        '''Метод для оператора равенство'''
+
         if not isinstance(second_student, Student):
             print('Not a Student!')
             return
@@ -109,6 +118,9 @@ class Lecture(Mentor):
         return name + average
 
     def __average_rating(self):
+
+        '''Вычисляет среднюю оценку за лекции по всем предметам'''
+
         count = 0
         total_length = 0
         for value in self.grades.values():
@@ -117,6 +129,30 @@ class Lecture(Mentor):
         if total_length == 0:
             return 'Нет оценок'
         return round(count/total_length, 1)
+    
+    def __lt__(self, second_lecture):
+
+        '''Метод для оператора меньше'''
+
+        if not isinstance(second_lecture, Lecture):
+            print('Not a Lecture!')
+            return
+        if self.__average_rating() < second_lecture.__average_rating():
+            print(f'True. {self.name} слабее {second_lecture.name}')
+        else:
+            print(f'False. {self.name} сильнее {second_lecture.name}')
+            
+    def __eq__(self, second_lecture):
+
+        '''Метод для оператора равенство'''
+        
+        if not isinstance(second_lecture, Lecture):
+            print('Not a Lecture!')
+            return
+        if self.__average_rating() == second_lecture.__average_rating():
+            print(f'True. {self.name} и {second_lecture.name} одинаково умны')
+        else:
+            print(f'False. {self.name} и {second_lecture.name} разные')
 
 
 class Reviewer(Mentor):
@@ -165,6 +201,7 @@ best_student.rate_hw(cool_lecture, 'Python', 6)
 best_student.rate_hw(cool_lecture, 'Python', 9)
 print(best_student.rate_hw(cool_lecture, 'Java', 3))
 print(best_student.rate_hw(cool_lecture, 'C++', 5))
+best_student.rate_hw(cool_lecture_2, 'Java', 4)
 
 print(best_student.rate_hw(cool_reviewer, 'Python', 3))
  

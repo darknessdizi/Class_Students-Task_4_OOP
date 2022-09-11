@@ -6,4 +6,6 @@
 4. Перегружен магический метод __str__ у Lecture и Reviewer
 5. Добавлен метод __average_rating у Lecture
 6. Перегружен магический метод __str__ у Student
-7. Добавлены методы сравнения __lt__ и __eq__ для Student
+7. Добавлен метод __average_rating у Student
+8. Добавлены методы сравнения __lt__ и __eq__ для Student
+9. Добавлены методы сравнения __lt__ и __eq__ для Lecture
