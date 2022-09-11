@@ -17,8 +17,8 @@ class Student:
     def rate_hw(self, lecture, course, grade):
 
         '''Метод добавляет оценку лектору за предоставленный курс при условии,
-что лектор является объктом класса Lecture, предоставленный курс закреплен за
-указанным лектором и данный курс входит в список курсов текущего студента'''
+        что лектор является объктом класса Lecture, предоставленный курс закреплен за
+        указанным лектором и данный курс входит в список курсов текущего студента'''
         
         if (isinstance(lecture, Lecture) and
             course in lecture.courses_attached and
@@ -29,7 +29,32 @@ class Student:
                 lecture.grades[course] = [grade]
         else:
             return f'Error for {lecture.name} {lecture.surname}'
- 
+
+    def __str__(self):
+
+        '''Выводит на печать имя, фамилию и среднюю оценку за домашние задания, а так же 
+        курсы в процессе и завершенные курсы объекта (для расчетов оценки используется 
+        скрытый метод __average_rating)'''
+
+        name = f'Имя: {self.name}\nФамилия: {self.surname}\n'
+        average = f'Средняя оценка за домашние задания: {self.__average_rating()}\n'
+        courses_in_progress = ', '.join(self.courses_in_progress)
+        courses_in_progress = f'Курсы в процессе изучения: {courses_in_progress}\n'
+        finished_courses = ', '.join(self.finished_courses)
+        finished_courses = f'Завершенные курсы: {finished_courses}'
+        return name + average + courses_in_progress + finished_courses
+
+    def __average_rating(self):
+        count = 0
+        total_length = 0
+        for value in self.grades.values():
+            count += sum(value)
+            total_length += len(value)
+        if total_length == 0:
+            return 'Нет оценок'
+        return round(count/total_length, 1)
+
+
 class Mentor:
 
     '''Создает учителей'''
@@ -42,6 +67,7 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
 
 class Lecture(Mentor):
 
@@ -56,19 +82,24 @@ class Lecture(Mentor):
         self.grades = {}
 
     def __str__(self):
+
+        '''Выводит на печать имя, фамилию и среднюю оценку за лекции
+        (для расчетов оценки используется скрытый метод __average_rating)'''
+
         name = f'Имя: {self.name}\nФамилия: {self.surname}\n'
-        text = f'Средняя оценка за лекции: {self.__average_rating()}'
-        return name + text
+        average = f'Средняя оценка за лекции: {self.__average_rating()}'
+        return name + average
 
     def __average_rating(self):
         count = 0
         total_length = 0
-        for key, value in self.grades.items():
+        for value in self.grades.values():
             count += sum(value)
             total_length += len(value)
         if total_length == 0:
             return 'Нет оценок'
         return round(count/total_length, 1)
+
 
 class Reviewer(Mentor):
 
@@ -77,8 +108,8 @@ class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
 
         '''Метод добавляет оценку студенту за пройденный курс при условии,
-что студент является объктом класса Student, пройденный курс закреплен за
-текущим учителем и данный курс входит в список курсов указанного студента'''
+        что студент является объктом класса Student, пройденный курс закреплен за
+        текущим учителем и данный курс входит в список курсов указанного студента'''
         
         if (isinstance(student, Student) and
             course in self.courses_attached and
@@ -91,10 +122,15 @@ class Reviewer(Mentor):
             return 'Ошибка' 
 
     def __str__(self):
+
+        '''Выводит на печать имя и фамилию объекта класса'''
+
         return f'Имя: {self.name}\nФамилия: {self.surname}'
+
 
 best_student = Student('Ruoy', 'Eman', 'man')
 best_student.courses_in_progress += ['Python', 'Java']
+best_student.finished_courses += ['C++']
  
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
