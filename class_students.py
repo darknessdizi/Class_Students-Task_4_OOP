@@ -181,8 +181,10 @@ class Reviewer(Mentor):
 
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
-
 def assessment_of_homework(list_student, course):
+
+    '''Функция подсчитывает средний бал студентов за указанный курс'''
+
     average_score = 0
     count = 0
     for student in list_student:
@@ -196,6 +198,9 @@ def assessment_of_homework(list_student, course):
         return f'Средняя оценка за домашнее задание по "{course}": {average_score}'
 
 def assessment_for_lectures(list_lecture, course):
+
+    '''Функция подсчитывает средний бал за лекции преподователей по указанному курсу'''
+
     average_score = 0
     count = 0
     for lecture in list_lecture:
@@ -207,6 +212,7 @@ def assessment_for_lectures(list_lecture, course):
     else:
         average_score = average_score/count
         return f'Средняя оценка за лекции по "{course}": {average_score}'
+
 
 list_student = []
 list_lecture = []
