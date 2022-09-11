@@ -55,6 +55,21 @@ class Lecture(Mentor):
         super().__init__(name, surname)
         self.grades = {}
 
+    def __str__(self):
+        name = f'Имя: {self.name}\nФамилия: {self.surname}\n'
+        text = f'Средняя оценка за лекции: {self.__average_rating()}'
+        return name + text
+
+    def __average_rating(self):
+        count = 0
+        total_length = 0
+        for key, value in self.grades.items():
+            count += sum(value)
+            total_length += len(value)
+        if total_length == 0:
+            return 'Нет оценок'
+        return round(count/total_length, 1)
+
 class Reviewer(Mentor):
 
     '''Создает учителей-экспертов, проверяющих домашние задания'''
@@ -75,6 +90,9 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка' 
 
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
+
 best_student = Student('Ruoy', 'Eman', 'man')
 best_student.courses_in_progress += ['Python', 'Java']
  
@@ -83,11 +101,13 @@ cool_reviewer.courses_attached += ['Python']
 
 cool_lecture = Lecture('Irina', 'Shayk')
 cool_lecture.courses_attached += ['Python', 'Java', 'C++']
+cool_lecture_2 = Lecture('Baks', 'Banny')
+cool_lecture_2.courses_attached += ['Python', 'Java', 'C++', 'Html']
 
 best_student.rate_hw(cool_lecture, 'Python', 9)
 best_student.rate_hw(cool_lecture, 'Python', 6)
 best_student.rate_hw(cool_lecture, 'Python', 9)
-print(best_student.rate_hw(cool_lecture, 'Java', 1))
+print(best_student.rate_hw(cool_lecture, 'Java', 3))
 print(best_student.rate_hw(cool_lecture, 'C++', 5))
 
 print(best_student.rate_hw(cool_reviewer, 'Python', 3))
@@ -100,3 +120,8 @@ print(best_student.grades)
 print(best_student.__dict__)
 print(cool_lecture.__dict__)
 print(cool_reviewer.__dict__)
+print(cool_lecture_2.__dict__)
+print(best_student)
+print(cool_reviewer)
+print(cool_lecture)
+print(cool_lecture_2)
